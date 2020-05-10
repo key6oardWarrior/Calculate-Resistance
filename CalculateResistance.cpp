@@ -5,9 +5,10 @@ using namespace std;
 /*
 Find the total resistance of any circuit.
 I understand that creating a private
-double totR is better than passing by
-reference; however, the goal of this code is
-to show my understanding of C++, but not
+double totR is better for preformance
+than passing by reference; however, the
+goal of this code is to show my
+understanding of C++, but not
 necessarily the best way to do something.
 */
 class Calculator {
