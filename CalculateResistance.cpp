@@ -62,7 +62,6 @@ Find the equivalent resistance of a circuit
 */
 double Calculator::equivalentResistance(double &totR) {
 	char x;
-	numOfResistors = 2;
 
 	cout << "Is this part of the circuit in parallel? Y/N ";
 	cin >> x;
