@@ -4,7 +4,7 @@ using namespace std;
 
 /*
 Find the total resistance of any circuit.
- that creating a */
+*/
 class Calculator {
 	int numOfResistors;
 
