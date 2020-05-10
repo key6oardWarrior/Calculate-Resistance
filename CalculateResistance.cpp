@@ -2,17 +2,28 @@
 #include <string>
 using namespace std;
 
+/*
+Find the total resistance of any circuit.
+I understand that creating a private
+double totR is better than passing by
+reference; however, the goal of this code is
+to show my understanding of C++, but not
+necessarily the best way to do something.
+*/
 class Calculator {
 	int numOfResistors;
 
 public:
 	Calculator();
-	double sHelper(double &totR, bool isER);
-	double pHelper(double &totR, bool isER);
+	double sHelper(double &totR);
+	double pHelper(double &totR);
 	double equivalentResistance(double &totR);
 };
 
-double Calculator::sHelper(double &totR, bool isER) {
+/*
+Find the resistance of a circuit in series
+*/
+double Calculator::sHelper(double &totR) {
 	double resistor;
 
 	cout << "What is the value of this resistor (AB * 10^C) ";
@@ -21,18 +32,16 @@ double Calculator::sHelper(double &totR, bool isER) {
 	totR += resistor;
 	numOfResistors--;
 
-	if(numOfResistors <= 0) {
-		if(isER == false) { // base case
-			cout << "Total Resistance of this circuit is: " << totR;
-			return totR;
-		} else {
-			return totR;
-		}
+	if(numOfResistors <= 0) { // base case
+		return totR;
 	}
-	return sHelper(totR, isER);
+	return sHelper(totR);
 }
 
-double Calculator::pHelper(double &totR, bool isER) {
+/*
+Find the resistance of a circuit in parpallel
+*/
+double Calculator::pHelper(double &totR) {
 	double resistor;
 
 	cout << "What is the value of this resistor (AB * 10^C) ";
@@ -41,17 +50,15 @@ double Calculator::pHelper(double &totR, bool isER) {
 	totR += 1 / resistor;
 	numOfResistors--;
 
-	if(numOfResistors <= 0) {
-		if(isER == false) { // base case
-			cout << "Total Resistance of this circuit is: " << totR;
-			return totR;
-		} else {
-			return totR;
-		}
+	if(numOfResistors <= 0) { // base case
+		return totR;
 	}
-	return pHelper(totR, isER);
+	return pHelper(totR);
 }
 
+/*
+Find the equivalent resistance of a circuit
+*/
 double Calculator::equivalentResistance(double &totR) {
 	char x;
 	numOfResistors = 2;
@@ -59,10 +66,13 @@ double Calculator::equivalentResistance(double &totR) {
 	cout << "Is this part of the circuit in parallel? Y/N ";
 	cin >> x;
 
+	cout << "How many resistors are there in this part of the circuit? ";
+	cin >> numOfResistors;
+
 	if(x == 'Y') {
-		pHelper(totR, true);
+		pHelper(totR);
 	} else {
-		sHelper(totR, true);
+		sHelper(totR);
 	}
 
 	cout << "Are there more calculations needed to find the equivalent resistance? Y/N ";
@@ -70,11 +80,13 @@ double Calculator::equivalentResistance(double &totR) {
 
 	if(x == 'N') { // base case
 		return totR;
-	} else {
-		return equivalentResistance(totR);
 	}
+	return equivalentResistance(totR);
 }
 
+/*
+Drive code. Take input and give the user output
+*/
 Calculator::Calculator() {
 	char x;
 	double totR = 0.0;
@@ -100,16 +112,18 @@ Calculator::Calculator() {
 	cin >> x;
 
 	if(x == 'Y') {
-		pHelper(totR, false);
+		pHelper(totR);
 	} else {
-		sHelper(totR, false);
+		sHelper(totR);
 	}
 
-	cout << "The equivalent resistance is: " << totR << "\nRestart to run again.";
+	cout << "The total resistance is: " << totR << "\nRestart to run again.";
 	while(true) {}
 }
 
 int main() {
 	Calculator* cal = new Calculator();
+	delete cal;
+
 	return 0;
 }
