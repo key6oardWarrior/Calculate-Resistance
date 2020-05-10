@@ -7,12 +7,12 @@ class Calculator {
 
 public:
 	Calculator();
-	double sHelper(double totR, bool isER);
-	double pHelper(double totR, bool isER);
-	double equivalentResistance(double totR);
+	double sHelper(double &totR, bool isER);
+	double pHelper(double &totR, bool isER);
+	double equivalentResistance(double &totR);
 };
 
-double Calculator::sHelper(double totR, bool isER) {
+double Calculator::sHelper(double &totR, bool isER) {
 	double resistor;
 
 	cout << "What is the value of this resistor (AB * 10^C) ";
@@ -32,7 +32,7 @@ double Calculator::sHelper(double totR, bool isER) {
 	return sHelper(totR, isER);
 }
 
-double Calculator::pHelper(double totR, bool isER) {
+double Calculator::pHelper(double &totR, bool isER) {
 	double resistor;
 
 	cout << "What is the value of this resistor (AB * 10^C) ";
@@ -52,7 +52,7 @@ double Calculator::pHelper(double totR, bool isER) {
 	return pHelper(totR, isER);
 }
 
-double Calculator::equivalentResistance(double totR) {
+double Calculator::equivalentResistance(double &totR) {
 	char x;
 	numOfResistors = 2;
 
@@ -60,9 +60,9 @@ double Calculator::equivalentResistance(double totR) {
 	cin >> x;
 
 	if(x == 'Y') {
-		totR += pHelper(0, true);
+		pHelper(totR, true);
 	} else {
-		totR += sHelper(0, true);
+		sHelper(totR, true);
 	}
 
 	cout << "Are there more calculations needed to find the equivalent resistance? Y/N ";
@@ -77,14 +77,13 @@ double Calculator::equivalentResistance(double totR) {
 
 Calculator::Calculator() {
 	char x;
+	double totR = 0.0;
 
 	cout << "Do you want to find Total resistance (T) or Equivalent resistance (E)? T/E ";
 	cin >> x;
 
 	if(x == 'E') {
-		double totR = 0.0;
-
-		totR = equivalentResistance(0);
+		equivalentResistance(totR);
 		cout << "The equivalent resistance is: " << totR << "\nRestart to run again.";
 		while(true) {}
 	}
@@ -101,10 +100,12 @@ Calculator::Calculator() {
 	cin >> x;
 
 	if(x == 'Y') {
-		pHelper(0, false);
+		pHelper(totR, false);
 	} else {
-		sHelper(0, false);
+		sHelper(totR, false);
 	}
+
+	cout << "The equivalent resistance is: " << totR << "\nRestart to run again.";
 	while(true) {}
 }
 
