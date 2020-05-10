@@ -85,7 +85,7 @@ double Calculator::equivalentResistance(double &totR) {
 }
 
 /*
-Drive code. Take input and give the user output
+Driver code. Take input and give the user output
 */
 Calculator::Calculator() {
 	char x;
