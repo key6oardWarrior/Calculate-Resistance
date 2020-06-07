@@ -118,7 +118,7 @@ Calculator::Calculator() {
 int main() {
 	Calculator* cal = new Calculator();
 	delete cal;
-	cal = 0;
+	cal = nullptr;
 
 	return 0;
 }
